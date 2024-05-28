@@ -3,10 +3,15 @@ package com.study.java_study.ch09_클래스04;
 
 // 저장소 -> CRUD
 public class BookRepository {
+    private int bookId;
     private BookEntity[] books;
 
     public BookRepository() {
         books = new BookEntity[0];
+    }
+
+    public int autoIncrementBookId() {
+        return ++bookId;
     }
 
     private void extendBooks() {

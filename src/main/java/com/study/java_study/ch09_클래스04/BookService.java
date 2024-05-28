@@ -45,8 +45,10 @@ public class BookService {
                 isRun = false;
                 break;
             case "1":
+                registerBook();
                 break;
             case "2":
+                search();
                 break;
             case "3":
                 break;
@@ -87,13 +89,38 @@ public class BookService {
 
     private void registerBook() {
         System.out.println("[ 도서 등록 ]");
-        String bookName = null;
-        String author = null;
-        String publisher = null;
+        int bookId = bookRepository.autoIncrementBookId();
+        String bookName = duplicateBookName();
+        String author = validateValue("저자");
+        String publisher = validateValue("출판사");
 
-        bookName = duplicateBookName();
-        author = validateValue("저자");
-        publisher = validateValue("출판사");
+        BookEntity book = new BookEntity(bookId, bookName, author, publisher);
+        bookRepository.saveBook(book);
+        System.out.println("새로운 도서를 등록하였습니다.");
+    }
+
+    private void search() {
+        System.out.println("[ 도서 검색 ]");
+        System.out.println("1. 통합 검색");
+        System.out.println("2. 도서명 검색");
+        System.out.println("3. 저자명 검색");
+        System.out.println("4. 출판사명 검색");
+        System.out.print("옵션 선택: ");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("검색어 입력: ");
+        String searchText = scanner.nextLine();
+        BookEntity[] searchBooks = bookRepository.searchBooks(option, searchText);
+
+        System.out.println("[ 검색 결과 ]");
+        if(searchBooks.length == 0) {
+            System.out.println("검색 결과가 없습니다.");
+            return;
+        }
+        for(BookEntity book : searchBooks) {
+            System.out.println(book.toString());
+            System.out.println();
+        }
     }
 
 }
