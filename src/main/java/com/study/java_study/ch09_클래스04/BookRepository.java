@@ -46,7 +46,49 @@ public class BookRepository {
     }
 
     public BookEntity findBookByBookName(String bookName) {
+        BookEntity findBook = null;
 
+        // 선형탐색
+        for(BookEntity book : books) {
+            if(book.getBookName().equals(bookName)) {
+                findBook = book;
+                break;
+            }
+        }
+
+        return findBook;
+    }
+
+    private int getNewArraySize(String bookName, String author, String publisher) {
+        int newArraySize = 0;
+
+        for(BookEntity book : books) {
+            if(book.getBookName().contains(bookName)
+                    || book.getAuthor().contains(author)
+                    || book.getPublisher().contains(publisher)) {
+                newArraySize++;
+            }
+        }
+
+        return newArraySize;
+    }
+
+    public BookEntity[] searchBooks(String bookName, String author, String publisher) {
+        int newArraySize = getNewArraySize(bookName, author, publisher);
+
+        BookEntity[] searchBooks = new BookEntity[newArraySize];
+
+        int i = 0;
+        for(BookEntity book : books) {
+            if(book.getBookName().contains(bookName)
+                    || book.getAuthor().contains(author)
+                    || book.getPublisher().contains(publisher)) {
+                searchBooks[i] = book;
+                i++;
+            }
+        }
+
+        return searchBooks;
     }
 
 }
