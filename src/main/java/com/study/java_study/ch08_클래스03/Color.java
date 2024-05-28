@@ -5,8 +5,27 @@ public class Color {
     private String name;
 
     // AllArgsConstructor
+    public Color(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 
     // getter and setter
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void printInfo() {
         System.out.println("색상코드: " + code);
