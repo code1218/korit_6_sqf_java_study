@@ -10,7 +10,6 @@ public class BookMain {
         while(bookService.run()) {}
 
         System.out.println("프로그램을 종료합니다.");
-
     }
 
 }

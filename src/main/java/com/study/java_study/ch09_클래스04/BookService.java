@@ -53,6 +53,7 @@ public class BookService {
             case "3":
                 break;
             case "4":
+                remove();
                 break;
             default:
                 System.out.println("입력 오류!");
@@ -119,8 +120,21 @@ public class BookService {
         }
         for(BookEntity book : searchBooks) {
             System.out.println(book.toString());
-            System.out.println();
         }
+    }
+
+    public void remove() {
+        System.out.println("[ 도서 삭제 ]");
+        search();
+        System.out.print("삭제 할 도서번호 입력:");
+        int removeBookId = scanner.nextInt();
+        scanner.nextLine();
+        BookEntity book = bookRepository.findBookByBookId(removeBookId);
+        if(book == null) {
+            System.out.println("해당 도서번호는 존재하지 않습니다.");
+            return;
+        }
+        bookRepository.deleteBookByBookId(removeBookId);
     }
 
 }
