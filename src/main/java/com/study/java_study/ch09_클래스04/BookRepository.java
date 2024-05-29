@@ -154,9 +154,7 @@ public class BookRepository {
         return searchBooks;
     }
 
-    public void deleteBookByBookId(int bookId) {
-        BookEntity[] newBooks = new BookEntity[books.length - 1];
-
+    private int indexOfBookId(int bookId) {
         int findIndex = -1;
 
         for(int i = 0; i < books.length; i++) {
@@ -165,6 +163,13 @@ public class BookRepository {
                 break;
             }
         }
+
+        return findIndex;
+    }
+
+    public void deleteBookByBookId(int bookId) {
+        int findIndex = indexOfBookId(bookId);
+        BookEntity[] newBooks = new BookEntity[books.length - 1];
 
         for(int i = 0; i < newBooks.length; i++) {
             if(i < findIndex) {
